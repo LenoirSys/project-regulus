@@ -1,0 +1,27 @@
+# Exemple de fichier d'importation d'utilisateurs pour Project Regulus GMAO
+- nom: LAURENT
+  prenom: Jean-Paul
+  email: jp.laurent@regulus-gmao.org
+  password: TempPassword123!
+  role: technician
+  specialite: biomedicale
+  telephone: "0601020304"
+  service: Pôle Biomédical Regulus
+
+- nom: MOREAU
+  prenom: Claire
+  email: c.moreau@regulus-gmao.org
+  password: TempPassword123!
+  role: supervisor
+  specialite: fluides
+  telephone: "0605060708"
+  service: Direction Technique Regulus
+
+- nom: BERNARD
+  prenom: Thomas
+  email: t.bernard@regulus-gmao.org
+  password: TempPassword123!
+  role: technician
+  specialite: froid
+  telephone: "0611121314"
+  service: CHU Central

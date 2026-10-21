@@ -1,0 +1,18 @@
+rules_version = '2';
+
+// ============================================================
+// PROJECT REGULUS — Règles Firestore (Environnement Local / Émulateur)
+// ============================================================
+// Configuration permissive adaptée au développement hors-ligne
+// et aux tests locaux avec la Firebase Local Emulator Suite (:8080).
+// ============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Accès complet autorisé pour l'environnement d'émulation locale
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

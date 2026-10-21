@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Regulus — Signaler un problème</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- Header simplifié -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="logo-container" title="Retour à la vitrine Project Regulus">
+                    <img src="logo.svg" alt="Project Regulus" class="app-logo" />
+                    <div class="logo-brand">
+                        <span class="logo-text">REGULUS</span>
+                        <span class="logo-sub">GMAO</span>
+                    </div>
+                </a>
+                <h2 class="page-title">📱 Signalement</h2>
+            </div>
+            <div class="header-right">
+                <div class="user-profile" style="cursor:default;">
+                    <span class="user-avatar" style="background:#FB8C00;">👤</span>
+                    <span class="user-name">Mode invité</span>
+                </div>
+                <a href="index.html" class="btn ghost" style="padding:8px 16px; font-size:0.85rem;">✕ Fermer</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="grid signaler" style="max-width:720px; margin:0 auto;">
+            <div class="card">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+                    <span style="font-size:2rem;">📋</span>
+                    <div>
+                        <h2 style="margin:0;">Signaler un problème</h2>
+                        <p class="muted" style="margin:4px 0 0;">Remplissez ce formulaire pour déclarer une panne ou un dysfonctionnement technique</p>
+                    </div>
+                </div>
+
+                <div style="background:#FFF3E0; padding:12px 16px; border-radius:var(--radius-sm); margin-bottom:20px; display:flex; align-items:center; gap:8px;">
+                    <span>ℹ️</span>
+                    <span style="font-size:0.9rem; color:#E65100;">Vous n'avez pas besoin de compte pour signaler un problème.</span>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field full">
+                        <label for="reporterName">👤 Votre nom</label>
+                        <input id="reporterName" placeholder="Ex. Dr. Claire Dubois" />
+                    </div>
+                    <div class="field full">
+                        <label for="reporterService">🏥 Service / Localisation</label>
+                        <input id="reporterService" placeholder="Ex. CHU Central — Maternité, Bloc opératoire..." />
+                    </div>
+                    <div class="field full">
+                        <label for="equipmentName">🔧 Équipement ou installation</label>
+                        <input id="equipmentName" list="equipmentList" placeholder="Ex. Autoclave salle 2, Respirateur, Groupe froid..." />
+                        <datalist id="equipmentList"></datalist>
+                    </div>
+                    <div class="field full">
+                        <label for="problemDesc">📝 Description du problème</label>
+                        <textarea id="problemDesc" rows="4" placeholder="Décrivez précisément le problème que vous rencontrez..."></textarea>
+                    </div>
+                    <div class="field full">
+                        <label for="clientPhoto">📷 Photo (optionnelle)</label>
+                        <input id="clientPhoto" type="file" accept="image/*" />
+                    </div>
+                </div>
+                <div class="actions">
+                    <button id="clientSubmitBtn" class="btn primary" style="flex:1; justify-content:center;">
+                        📤 Envoyer le signalement
+                    </button>
+                    <button id="clientResetBtn" class="btn ghost">🗑️ Vider</button>
+                </div>
+            </div>
+
+            <!-- Mes signalements (sans compte) -->
+            <div class="card" id="myReportsSection">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3 style="margin:0;">📋 Mes signalements</h3>
+                    <span class="muted" style="font-size:0.85rem;">Session en cours</span>
+                </div>
+                <div id="clientRequests" class="request-list"></div>
+                <p class="muted" style="font-size:0.8rem; margin-top:12px;">
+                    💡 Les signalements sont conservés pendant votre session.
+                </p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 1. SDKs Firebase CDN (10.8.0) -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+
+    <!-- 2. Scripts applicatifs -->
+    <script src="js/firebase.js"></script>
+    <script src="js/state-utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/page-bootstrap.js"></script>
+
+    <!-- 3. Script spécifique au client -->
+    <script src="js/client.js"></script>
+</body>
+</html>

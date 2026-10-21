@@ -1,0 +1,19 @@
+{
+  "name": "project-regulus-gmao",
+  "version": "1.0.0",
+  "description": "Project Regulus — Plateforme GMAO Biomédicale, Technique & Fluides Médicaux (100% Hors-Ligne via Firebase Local Emulator Suite)",
+  "private": true,
+  "scripts": {
+    "emulators:start": "firebase emulators:start --project demo-project-regulus --import=./demo-data --export-on-exit=./demo-data",
+    "emulators:export": "firebase emulators:export ./demo-data --project demo-project-regulus --force",
+    "admin:web": "python admin-tools/server.py",
+    "admin:cli": "python admin-tools/user.py",
+    "dev:full": "node scripts/dev-full.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LenoirSys/project-regulus.git"
+  },
+  "author": "LenoirSys",
+  "license": "MIT"
+}

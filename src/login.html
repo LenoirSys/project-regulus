@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion — Project Regulus GMAO</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <img src="logo.svg" alt="Project Regulus" class="login-logo-img" />
+                    <div class="login-brand-text">
+                        <span class="login-brand-title">PROJECT <span class="login-brand-badge">REGULUS</span></span>
+                        <span class="login-brand-sub">Plateforme GMAO Biomédicale &amp; Technique</span>
+                    </div>
+                </div>
+                <h1>Connexion</h1>
+                <p class="login-subtitle">Espace technique et supervision</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="loginEmail">📧 Email professionnel</label>
+                    <input 
+                        type="email" 
+                        id="loginEmail" 
+                        placeholder="exemple@regulus-gmao.org" 
+                        value="tech@regulus-gmao.org"
+                        required
+                        autocomplete="email"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">🔒 Mot de passe</label>
+                    <input 
+                        type="password" 
+                        id="loginPassword" 
+                        placeholder="••••••••" 
+                        value="password"
+                        required
+                        autocomplete="current-password"
+                    />
+                </div>
+
+                <button type="submit" class="btn primary full" style="padding:14px; font-size:1rem;">
+                    🔑 Se connecter
+                </button>
+
+                <div class="login-roles">
+                    <p class="demo-hint">⚡ Accès rapide (Comptes de démonstration) :</p>
+                    <div class="role-badges">
+                        <span class="role-badge" data-role="technician">🔧 Technicien</span>
+                        <span class="role-badge" data-role="supervisor">📊 Superviseur</span>
+                    </div>
+                </div>
+            </form>
+
+            <div class="login-footer" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; font-weight:500;">
+                    <span>←</span> Retour à la vitrine Project Regulus
+                </a>
+                <a href="https://github.com/LenoirSys" target="_blank" rel="noopener noreferrer" style="font-size:0.82rem; color:#64748B;">
+                    🐙 GitHub
+                </a>
+            </div>
+        </div>
+
+        <div class="login-info">
+            <div class="login-info-content">
+                <div style="font-size:3rem; margin-bottom:12px;">✨</div>
+                <h3>Project Regulus GMAO</h3>
+                <p style="font-size:0.95rem; opacity:0.85;">Plateforme opérationnelle dédiée aux équipes d'ingénierie biomédicale, de maintenance hospitalière et de supervision.</p>
+                <div style="margin:24px 0; border-top:1px solid rgba(255,255,255,0.18); border-bottom:1px solid rgba(255,255,255,0.18); padding:18px 0;">
+                    <div style="display:grid; gap:10px;">
+                        <span>✅ Gestion des interventions &amp; inventaires</span>
+                        <span>✅ File de travail et diagnostics techniques</span>
+                        <span>✅ Génération de fiches et bilans Word officiels (.docx)</span>
+                        <span>✅ Contrôle des livraisons d'oxygène &amp; centrales PSA</span>
+                        <span>✅ Supervision globale, alertes &amp; administration CLI/Web</span>
+                    </div>
+                </div>
+                <div style="margin-top:20px; font-size:0.85rem; opacity:0.8; display:flex; align-items:center; gap:8px;">
+                    <span>🔒</span> Instance Project Regulus — Cloud Firestore &amp; Mode Démo
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+    
+    <script src="js/firebase.js"></script>
+    <script src="js/state-utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/page-bootstrap.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

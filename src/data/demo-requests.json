@@ -1,0 +1,130 @@
+{
+  "requests": [
+    {
+      "id": "REQ-2026-001",
+      "equipment": "Autoclave Horizontal 120L",
+      "inventory": "INV-REG-2026-001",
+      "brand": "Tuttnauer",
+      "service": "CHU Central — Stérilisation Centrale",
+      "structure": "CHU Central",
+      "domain": "biomedicale",
+      "specialite": "Biomédical",
+      "description": "Fuite de vapeur au niveau du joint de porte et montée en pression incomplète à 134°C.",
+      "priority": "high",
+      "status": "in_progress",
+      "createdAt": "2026-07-18T10:30:00Z",
+      "assignedTo": "Technicien Laurent",
+      "reporter": { "name": "Dr. Claire Dubois", "service": "Stérilisation Centrale" },
+      "diagnostic": {
+        "desc": "Usure thermique avancée du joint périphérique en silicone et encrassement de l'électrovanne de purge.",
+        "cause": "Usure normale après 1 500 cycles de stérilisation",
+        "solution": "Remplacement du joint de porte et nettoyage complet de l'électrovanne.",
+        "observations": "Test d'étanchéité Bowie-Dick en cours"
+      },
+      "parts": [
+        { "ref": "JNT-120-SIL", "name": "Joint de porte silicone 120L", "qty": 1 }
+      ],
+      "photos": { "before": null, "after": null },
+      "timeline": [
+        { "date": "2026-07-18T10:30:00Z", "action": "Signalement créé par Dr. Claire Dubois" },
+        { "date": "2026-07-18T11:00:00Z", "action": "Prise en charge par Technicien Laurent" },
+        { "date": "2026-07-18T14:20:00Z", "action": "Diagnostic enregistré et pièce installée" }
+      ]
+    },
+    {
+      "id": "REQ-2026-002",
+      "equipment": "Respirateur d'Anesthésie Avance CS2",
+      "inventory": "INV-REG-2026-002",
+      "brand": "GE Healthcare",
+      "service": "CHU Central — Bloc Opératoire Salle 2",
+      "structure": "CHU Central",
+      "domain": "biomedicale",
+      "specialite": "Biomédical",
+      "description": "Alarme récurrente capteur de débit expiratoire lors de l'autotest matinal.",
+      "priority": "high",
+      "status": "reported",
+      "createdAt": "2026-07-19T08:15:00Z",
+      "assignedTo": null,
+      "reporter": { "name": "Dr. Marc Fontaine", "service": "Bloc Opératoire" },
+      "diagnostic": null,
+      "parts": [],
+      "photos": { "before": null, "after": null },
+      "timeline": [
+        { "date": "2026-07-19T08:15:00Z", "action": "Signalement créé par Dr. Marc Fontaine" }
+      ]
+    },
+    {
+      "id": "REQ-2026-003",
+      "equipment": "Centrale de Production d'Oxygène PSA",
+      "inventory": "INV-REG-2026-003",
+      "brand": "Novair Medical",
+      "service": "Pôle Technique — Centrale Fluides Médicaux",
+      "structure": "Hôpital Régional Nord",
+      "domain": "fluides",
+      "specialite": "Fluides & PSA",
+      "description": "Maintenance préventive trimestrielle et calibrage de l'analyseur paramagnétique O2 (pureté 94.8%).",
+      "priority": "medium",
+      "status": "resolved",
+      "createdAt": "2026-07-15T09:00:00Z",
+      "assignedTo": "Technicien Laurent",
+      "reporter": { "name": "Ing. Thomas Bernard", "service": "Fluides Médicaux" },
+      "diagnostic": {
+        "desc": "Contrôle des pressions tampons, purge des condensats et vérification des filtres coalescents.",
+        "cause": "Maintenance préventive planifiée",
+        "solution": "Remplacement des cartouches filtrantes amont/aval et étalonnage sonde O2.",
+        "observations": "Fonctionnel — Pureté O2 mesurée à 95.2% à 5.2 bar"
+      },
+      "parts": [
+        { "ref": "FLT-NOV-01", "name": "Kit filtres coalescents PSA", "qty": 2 }
+      ],
+      "photos": { "before": null, "after": null },
+      "timeline": [
+        { "date": "2026-07-15T09:00:00Z", "action": "Intervention préventive ouverte" },
+        { "date": "2026-07-15T09:30:00Z", "action": "Prise en charge par Technicien Laurent" },
+        { "date": "2026-07-15T15:00:00Z", "action": "Intervention clôturée — Centrale nominale" }
+      ]
+    },
+    {
+      "id": "REQ-2026-004",
+      "equipment": "Groupe Froid CTA Bloc Chirurgical",
+      "inventory": "INV-REG-2026-004",
+      "brand": "Carrier",
+      "service": "Centre Mère-Enfant — Bloc Obstétrical",
+      "structure": "Centre Mère-Enfant",
+      "domain": "froid",
+      "specialite": "Froid & Climatisation",
+      "description": "Baisse de rendement frigorifique sur la Centrale de Traitement d'Air n°1.",
+      "priority": "medium",
+      "status": "resolved",
+      "createdAt": "2026-07-16T11:00:00Z",
+      "assignedTo": "Technicien Laurent",
+      "reporter": { "name": "Mme Sophie Garnier", "service": "Bloc Obstétrical" },
+      "diagnostic": {
+        "desc": "Encrassement des batteries d'échange thermique et filtre HEPA saturé.",
+        "cause": "Colmatage poussière extérieure",
+        "solution": "Nettoyage haute pression des condenseurs, remplacement préfiltre G4 et contrôle charge R410A.",
+        "observations": "Fonctionnel — Température soufflage stabilisée à 18.5°C"
+      },
+      "parts": [
+        { "ref": "FIL-G4-CTA", "name": "Cassette filtrante G4 CTA", "qty": 2 }
+      ],
+      "photos": { "before": null, "after": null },
+      "timeline": [
+        { "date": "2026-07-16T11:00:00Z", "action": "Signalement créé" },
+        { "date": "2026-07-16T16:30:00Z", "action": "Intervention résolue par Technicien Laurent" }
+      ]
+    }
+  ],
+  "criticalAlerts": [
+    {
+      "id": "ALT-2026-001",
+      "type": "gas",
+      "service": "CHU Central — Réanimation Polyvalente",
+      "description": "Baisse de pression passagère sur la rampe secondaire d'oxygène médical (basculement automatique sur rampe de secours effectué).",
+      "urgency": "high",
+      "createdAt": "2026-07-19T07:30:00Z",
+      "status": "active",
+      "declaredBy": "Technicien Laurent"
+    }
+  ]
+}

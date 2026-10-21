@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Regulus — Plateforme GMAO Biomédicale & Hospitalière</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="landing-page">
+        <!-- Header -->
+        <header class="landing-header">
+            <div class="header-content">
+                <a href="index.html" class="logo-container">
+                    <img src="logo.svg" alt="Project Regulus" class="app-logo" />
+                    <div class="logo-brand">
+                        <span class="logo-text">PROJECT <span class="logo-city">REGULUS</span></span>
+                        <span class="logo-sub">Plateforme GMAO Biomédicale, Technique & Fluides Médicaux</span>
+                    </div>
+                </a>
+                <nav class="landing-nav">
+                    <a href="#presentation">Présentation</a>
+                    <a href="#features">Fonctionnalités</a>
+                    <a href="#admin-system">Administration</a>
+                    <a href="#github">GitHub</a>
+                    <a href="https://github.com/LenoirSys" target="_blank" rel="noopener noreferrer" class="btn ghost" style="padding:10px 16px;">
+                        🐙 Dépôt GitHub
+                    </a>
+                    <a href="login.html" class="btn primary">🔧 Démo & Espace Technique</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="badge-hero" style="background:#1565C0;">✨ Vitrine Publique & Architecture Open-GMAO</span>
+                    <h1>Project Regulus<br />Gestion de Maintenance<br />Hospitalière & Biomédicale</h1>
+                    <p>
+                        <strong>Project Regulus</strong> est une plateforme complète de GMAO (Gestion de la Maintenance Assistée par Ordinateur) 
+                        conçue pour les pôles d'ingénierie biomédicale, les services techniques hospitaliers et les unités de production de fluides médicaux.
+                        Elle unifie le suivi opérationnel en temps réel, la génération automatique de rapports officiels Word (<code>.docx</code>) 
+                        et un système d'administration hybride (Web &amp; CLI).
+                    </p>
+                    <div class="hero-actions" style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <a href="login.html" class="btn primary large">🚀 Explorer l'Application (Démo)</a>
+                        <a href="client.html" class="btn ghost large" style="background:white; border:1px solid #CBD5E1;">📱 Portail Signalement</a>
+                        <a href="https://github.com/LenoirSys" target="_blank" rel="noopener noreferrer" class="btn ghost large" style="background:#0F172A; color:white; border-color:#0F172A;">
+                            🐙 Voir sur GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-illustration">
+                    <div class="illustration-grid" style="grid-template-columns:1fr 1fr; gap:14px; background:#E3F2FD; border-radius:20px; padding:24px;">
+                        <div class="stat-card-hero" style="background:white; border-radius:14px; padding:18px; text-align:center; box-shadow:0 4px 12px rgba(15,23,42,0.06);">
+                            <span style="display:block; font-size:2.4rem;">🛠️</span>
+                            <span style="display:block; font-weight:700; font-size:0.95rem; color:#0F172A; margin-top:4px;">Atelier &amp; Supervision</span>
+                            <span style="display:block; font-size:0.78rem; color:#5A6B7C;">Suivi curatif, préventif &amp; KPIs live</span>
+                        </div>
+                        <div class="stat-card-hero" style="background:white; border-radius:14px; padding:18px; text-align:center; box-shadow:0 4px 12px rgba(15,23,42,0.06);">
+                            <span style="display:block; font-size:2.4rem;">🧪</span>
+                            <span style="display:block; font-weight:700; font-size:0.95rem; color:#0F172A; margin-top:4px;">Fluides &amp; Centrales PSA</span>
+                            <span style="display:block; font-size:0.78rem; color:#5A6B7C;">Livraisons O₂ &amp; checklists PSA</span>
+                        </div>
+                        <div class="stat-card-hero" style="background:white; border-radius:14px; padding:18px; text-align:center; box-shadow:0 4px 12px rgba(15,23,42,0.06);">
+                            <span style="display:block; font-size:2.4rem;">📄</span>
+                            <span style="display:block; font-weight:700; font-size:0.95rem; color:#0F172A; margin-top:4px;">Moteur Word (.docx)</span>
+                            <span style="display:block; font-size:0.78rem; color:#5A6B7C;">Fiches &amp; bilans consolidés en 1 clic</span>
+                        </div>
+                        <div class="stat-card-hero" style="background:white; border-radius:14px; padding:18px; text-align:center; box-shadow:0 4px 12px rgba(15,23,42,0.06);">
+                            <span style="display:block; font-size:2.4rem;">🛡️</span>
+                            <span style="display:block; font-weight:700; font-size:0.95rem; color:#0F172A; margin-top:4px;">Admin Hybride CLI/Web</span>
+                            <span style="display:block; font-size:0.78rem; color:#5A6B7C;">Provisioning Auth, Claims &amp; Batch</span>
+                        </div>
+                        <div class="stat-card-hero highlight" style="background:linear-gradient(135deg, #0D47A1 0%, #1565C0 60%, #00ACC1 100%); border-radius:14px; padding:18px; text-align:center; color:white; grid-column:1/-1;">
+                            <span style="display:block; font-size:1.8rem;">⚡</span>
+                            <span style="display:block; font-weight:700; font-size:1rem;">Architecture Cloud Temps Réel (Firebase &amp; Firestore)</span>
+                            <span style="display:block; font-size:0.82rem; opacity:0.9;">Prête à être connectée à toute instance Firestore dédiée ou exécutée en mode démonstration autonome</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Présentation Générale -->
+        <section id="presentation" class="features" style="background:#F4F6F8;">
+            <div class="features-content">
+                <h2>Présentation générale de Project Regulus</h2>
+                <p class="section-subtitle" style="max-width:820px; margin:0 auto 40px;">
+                    Conçu pour répondre aux exigences de traçabilité, de réactivité et de conformité des infrastructures hospitalières, 
+                    <strong>Project Regulus</strong> centralise l'ensemble du cycle de vie de la maintenance technique et biomédicale au sein d'une interface unifiée.
+                </p>
+
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:22px; margin-bottom:36px;">
+                    <div style="background:white; border-radius:16px; padding:26px; box-shadow:0 4px 12px rgba(0,0,0,0.05); border:1px solid #E2E8F0;">
+                        <span style="font-size:2.4rem; display:block; margin-bottom:10px;">🏥</span>
+                        <h4 style="margin:0 0 8px; font-size:1.1rem; color:#0F172A;">Couverture Multi-Spécialités</h4>
+                        <p style="font-size:0.9rem; color:#5A6B7C; margin:0; line-height:1.6;">
+                            Prise en charge native de 7 pôles : <strong>Biomédical</strong>, <strong>Fluides médicaux &amp; PSA</strong>, 
+                            <strong>Froid &amp; Climatisation</strong>, <strong>Électromécanique</strong>, <strong>Électricité &amp; Énergie</strong>, 
+                            <strong>Informatique</strong> et <strong>Infrastructures</strong>.
+                        </p>
+                    </div>
+                    <div style="background:white; border-radius:16px; padding:26px; box-shadow:0 4px 12px rgba(0,0,0,0.05); border:1px solid #E2E8F0;">
+                        <span style="font-size:2.4rem; display:block; margin-bottom:10px;">🔄</span>
+                        <h4 style="margin:0 0 8px; font-size:1.1rem; color:#0F172A;">Synchronisation Temps Réel</h4>
+                        <p style="font-size:0.9rem; color:#5A6B7C; margin:0; line-height:1.6;">
+                            Propulsé par <strong>Cloud Firestore</strong> (`onSnapshot`), chaque signalement, diagnostic, alerte critique ou contrôle PSA 
+                            est répercuté instantanément entre les techniciens terrain et la supervision.
+                        </p>
+                    </div>
+                    <div style="background:white; border-radius:16px; padding:26px; box-shadow:0 4px 12px rgba(0,0,0,0.05); border:1px solid #E2E8F0;">
+                        <span style="font-size:2.4rem; display:block; margin-bottom:10px;">🧩</span>
+                        <h4 style="margin:0 0 8px; font-size:1.1rem; color:#0F172A;">Déploiement &amp; Base Isolée</h4>
+                        <p style="font-size:0.9rem; color:#5A6B7C; margin:0; line-height:1.6;">
+                            Architecture 100% découplée : connectez votre propre instance <strong>Firebase / Firestore</strong> en quelques secondes 
+                            ou utilisez le <strong>Mode Démo</strong> intégré avec jeux de données préconfigurés.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Description Détaillée des Fonctionnalités -->
+        <section id="features" class="features" style="background:white;">
+            <div class="features-content">
+                <h2>Description détaillée des fonctionnalités</h2>
+                <p class="section-subtitle" style="max-width:780px; margin:0 auto 40px;">
+                    Une suite modulaire complète couvrant les opérations terrain, la logistique des gaz médicaux, le pilotage managérial et l'édition documentaire officielle.
+                </p>
+
+                <div class="features-grid" style="grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:24px;">
+                    <!-- Module 1 -->
+                    <div class="feature-card" style="text-align:left; padding:28px;">
+                        <div class="feature-icon" style="margin-bottom:14px;">🎯</div>
+                        <h3>1. Atelier Technicien &amp; Gestion des Interventions</h3>
+                        <p style="margin-bottom:12px;">
+                            Interface opérationnelle dédiée aux ingénieurs et techniciens biomédicaux (<a href="technicien.html" style="color:#1565C0; font-weight:600;">technicien.html</a>) :
+                        </p>
+                        <ul style="padding-left:18px; margin:0; color:#5A6B7C; font-size:0.88rem; line-height:1.65;">
+                            <li>File de travail filtrable (Toutes, Urgentes, En cours) et prise en charge en un clic.</li>
+                            <li><strong>Diagnostic technique complet</strong> : symptômes, cause probable, travaux réalisés et observation finale.</li>
+                            <li><strong>Suivi des pièces détachées</strong> (référence, désignation, quantité) et galerie photos Avant / Après.</li>
+                            <li><strong>Saisie directe d'interventions achevées</strong> et édition a posteriori avec traçabilité chronologique.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Module 2 -->
+                    <div class="feature-card" style="text-align:left; padding:28px;">
+                        <div class="feature-icon" style="margin-bottom:14px;">📊</div>
+                        <h3>2. Tour de Contrôle &amp; Supervision Globale</h3>
+                        <p style="margin-bottom:12px;">
+                            Tableau de bord décisionnel pour les chefs de service et superviseurs (<a href="superviseur.html" style="color:#1565C0; font-weight:600;">superviseur.html</a>) :
+                        </p>
+                        <ul style="padding-left:18px; margin:0; color:#5A6B7C; font-size:0.88rem; line-height:1.65;">
+                            <li><strong>Indicateurs clés (KPIs) en direct</strong> : volume total, interventions en cours, retards (&gt; 48h), taux de résolution et alertes actives.</li>
+                            <li><strong>Répartition analytique par domaine</strong> (Biomédical, Froid, Fluides/PSA, Électromécanique, Électricité).</li>
+                            <li><strong>Gestion de l'équipe technique</strong> : suivi de la charge par agent et création de comptes depuis l'interface.</li>
+                            <li>Recherche multicritère dans l'historique global et modification superviseur.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Module 3 -->
+                    <div class="feature-card" style="text-align:left; padding:28px;">
+                        <div class="feature-icon" style="margin-bottom:14px;">📄</div>
+                        <h3>3. Générateur Automatique de Rapports Word (.docx)</h3>
+                        <p style="margin-bottom:12px;">
+                            Moteur documentaire embarqué (<code>PizZip</code> + <code>Docxtemplater</code>) avec couche d'adaptation intelligente :
+                        </p>
+                        <ul style="padding-left:18px; margin:0; color:#5A6B7C; font-size:0.88rem; line-height:1.65;">
+                            <li><strong>Fiche d'Intervention Individuelle</strong> (<code>template_regulus_intervention.docx</code>) : génère un rapport officiel pré-rempli avec nomenclature des pièces, intervenant et visas.</li>
+                            <li><strong>Bilan Périodique Consolidé</strong> (<code>template_regulus_activites.docx</code>) : agrège par période (semaine, mois, global) toutes les activités classées par spécialité technique.</li>
+                            <li>Intégration automatique des livraisons d'oxygène et contrôles PSA dans la section <em>Fluides médicaux</em> du bilan.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Module 4 -->
+                    <div class="feature-card" style="text-align:left; padding:28px;">
+                        <div class="feature-icon" style="margin-bottom:14px;">🚚</div>
+                        <h3>4. Fluides Médicaux &amp; Logistique Oxygène</h3>
+                        <p style="margin-bottom:12px;">
+                            Module spécialisé pour la distribution d'oxygène médical aux structures sanitaires (<a href="livraison.html" style="color:#1565C0; font-weight:600;">livraison.html</a>) :
+                        </p>
+                        <ul style="padding-left:18px; margin:0; color:#5A6B7C; font-size:0.88rem; line-height:1.65;">
+                            <li>Enregistrement des <strong>livraisons d'oxygène</strong> par établissement destinataire, type d'ogive (B50, B20, B10), quantité et moyen logistique.</li>
+                            <li>Gestion du carnet de <strong>commandes</strong> reçues des structures hospitalières.</li>
+                            <li>Synchronisation directe avec la collection Firestore <code>requests</code> et synthèse hebdomadaire exportable en Word.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Module 5 -->
+                    <div class="feature-card" style="text-align:left; padding:28px;">
+                        <div class="feature-icon" style="margin-bottom:14px;">🧪</div>
+                        <h3>5. Contrôle Normatif des Centrales PSA</h3>
+                        <p style="margin-bottom:12px;">
+                            Suivi préventif et réglementaire des générateurs d'oxygène par adsorption (PSA) (<a href="PSA.html" style="color:#1565C0; font-weight:600;">PSA.html</a>) :
+                        </p>
+                        <ul style="padding-left:18px; margin:0; color:#5A6B7C; font-size:0.88rem; line-height:1.65;">
+                            <li><strong>Checklists multi-fréquences</strong> : points de contrôle Quotidiens, Hebdomadaires et Mensuels.</li>
+                            <li>Saisie des valeurs d'anomalies (pureté O₂, pression réseau, point de rosée, compresseur, sécheur).</li>
+                            <li><strong>Escalade automatique</strong> : tout contrôle présentant une anomalie génère une intervention prioritaire dans la file technique.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Module 6 -->
+                    <div class="feature-card" style="text-align:left; padding:28px;">
+                        <div class="feature-icon" style="margin-bottom:14px;">📅</div>
+                        <h3>6. Calendrier Unifié, Alertes Critiques &amp; Portail Client</h3>
+                        <p style="margin-bottom:12px;">
+                            Traçabilité temporelle et réactivité d'urgence sur l'ensemble de l'établissement :
+                        </p>
+                        <ul style="padding-left:18px; margin:0; color:#5A6B7C; font-size:0.88rem; line-height:1.65;">
+                            <li><strong>Calendrier d'activités interactif</strong> : visualisation mensuelle croisant pannes, livraisons O₂, contrôles PSA et alertes.</li>
+                            <li><strong>Système d'Alertes Critiques</strong> : déclaration d'urgences vitales (coupure électrique, fuite gaz médicaux, panne groupe froid bloc).</li>
+                            <li><strong>Portail de signalement invité</strong> (<a href="client.html" style="color:#1565C0; font-weight:600;">client.html</a>) : déclaration rapide sans compte pour le personnel soignant.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Système d'Administration Inclus -->
+        <section id="admin-system" class="features" style="background:linear-gradient(180deg, #0F172A 0%, #1E293B 100%); color:white;">
+            <div class="features-content">
+                <span class="badge-hero" style="background:rgba(56,189,248,0.18); color:#38BDF8; border:1px solid rgba(56,189,248,0.35); margin-bottom:12px; display:inline-block;">
+                    🛡️ Inclus dans le dépôt — Dossier admin-tools/
+                </span>
+                <h2 style="color:white;">Système d'Administration Hybride (Web Local &amp; CLI)</h2>
+                <p class="section-subtitle" style="color:#94A3B8; max-width:820px; margin:0 auto 40px;">
+                    En complément de l'application web, <strong>Project Regulus</strong> intègre une suite d'administration complète en Python 
+                    propulsée par le SDK <code>firebase-admin</code>. Elle permet aux administrateurs système de piloter les accès, les rôles 
+                    et l'alimentation de la base Firestore en toute sécurité.
+                </p>
+
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:22px; text-align:left;">
+                    <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:24px;">
+                        <h3 style="color:#38BDF8; font-size:1.1rem; margin:0 0 10px;">🌐 1. Interface Web Locale (Flask)</h3>
+                        <p style="color:#CBD5E1; font-size:0.88rem; line-height:1.6; margin:0 0 12px;">
+                            Accessible sur <code>http://127.0.0.1:5000</code> via <code>admin-tools/server.py</code> (ou <code>lancer_admin_ui.bat</code>) :
+                        </p>
+                        <ul style="padding-left:18px; margin:0; color:#94A3B8; font-size:0.84rem; line-height:1.6;">
+                            <li>Tableau de bord de gestion des agents (recherche, filtres par rôle/statut).</li>
+                            <li>Création unitaire, édition de profil/spécialité, réinitialisation de mot de passe et révocation d'accès en 1 clic.</li>
+                            <li>Zone <strong>Drag &amp; Drop</strong> pour l'importation massive de comptes et d'interventions.</li>
+                        </ul>
+                    </div>
+
+                    <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:24px;">
+                        <h3 style="color:#38BDF8; font-size:1.1rem; margin:0 0 10px;">💻 2. Console Interactive CLI</h3>
+                        <p style="color:#CBD5E1; font-size:0.88rem; line-height:1.6; margin:0 0 12px;">
+                            Menu interactif en terminal (<code>admin-tools/user.py</code> ou <code>lancer_cli.bat</code>) offrant <strong>13 commandes d'administration</strong> :
+                        </p>
+                        <ul style="padding-left:18px; margin:0; color:#94A3B8; font-size:0.84rem; line-height:1.6;">
+                            <li>Gestion complète du cycle de vie des utilisateurs (listing, ajout, activation/désactivation, suppression).</li>
+                            <li>Inspection, recherche, modification directe et suppression d'interventions dans Firestore.</li>
+                            <li>Clôture groupée d'interventions et rapport d'audit détaillé.</li>
+                        </ul>
+                    </div>
+
+                    <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:24px;">
+                        <h3 style="color:#38BDF8; font-size:1.1rem; margin:0 0 10px;">🔐 3. Synchronisation Auth + Claims + Firestore</h3>
+                        <p style="color:#CBD5E1; font-size:0.88rem; line-height:1.6; margin:0 0 12px;">
+                            Le moteur central <code>admin-tools/core.py</code> garantit l'intégrité des habilitations :
+                        </p>
+                        <ul style="padding-left:18px; margin:0; color:#94A3B8; font-size:0.84rem; line-height:1.6;">
+                            <li>Provisionnement simultané dans <strong>Firebase Authentication</strong> et dans la collection <code>users</code> de Firestore.</li>
+                            <li>Injection automatique des <strong>Custom Claims JWT</strong> (<code>role</code>, <code>specialite</code>) vérifiés par les règles de sécurité <code>firestore.rules</code>.</li>
+                            <li>Importation par lots (<code>db.batch()</code>) depuis des fichiers <code>.json</code> ou <code>.yaml</code>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Dépôt GitHub & Connexion Firestore -->
+        <section id="github" class="news" style="background:#F4F6F8; padding:64px 24px;">
+            <div class="news-content" style="max-width:960px; margin:0 auto;">
+                <div style="background:white; border-radius:20px; padding:40px; box-shadow:0 8px 24px rgba(15,23,42,0.06); border:1px solid #E2E8F0; text-align:center;">
+                    <span style="font-size:3rem; display:block; margin-bottom:8px;">🐙</span>
+                    <h2 style="margin:0; color:#0F172A; font-size:1.75rem;">Code Source &amp; Dépôt GitHub Associé</h2>
+                    <p style="color:#5A6B7C; font-size:1.05rem; max-width:680px; margin:12px auto 24px; line-height:1.6;">
+                        Retrouvez l'intégralité du code source de <strong>Project Regulus</strong> (application web, modèles Word <code>.docx</code>, 
+                        règles de sécurité Firestore et système d'administration Python/Flask) sur GitHub.
+                    </p>
+
+                    <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:28px;">
+                        <a href="https://github.com/LenoirSys" target="_blank" rel="noopener noreferrer" class="btn primary large" style="background:#0F172A;">
+                            🐙 Profil GitHub (@LenoirSys)
+                        </a>
+                        <a href="https://github.com/LenoirSys/project-regulus" target="_blank" rel="noopener noreferrer" class="btn primary large">
+                            📦 Dépôt GitHub — Project Regulus
+                        </a>
+                        <a href="login.html" class="btn ghost large" style="border:1px solid #CBD5E1;">
+                            🔑 Tester la Démo Interactive
+                        </a>
+                    </div>
+
+                    <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px; text-align:left; font-size:0.88rem; color:#334155;">
+                        <strong style="display:block; color:#0F172A; margin-bottom:8px; font-size:0.95rem;">⚡ Exécution 100 % Hors-Ligne (Firebase Local Emulator Suite) :</strong>
+                        <ol style="margin:0; padding-left:20px; line-height:1.7;">
+                            <li>Prérequis : <strong>Node.js (v18+)</strong>, <strong>Java JRE 11+</strong> (pour l'émulateur Firestore), <strong>Firebase CLI</strong> et <strong>Python 3.10+</strong>.</li>
+                            <li>L'application et la console d'administration utilisent par défaut l'identifiant fictif <code>demo-project-regulus</code> (<code>USE_EMULATOR = true</code>) et les SDKs embarqués localement dans <code>src/js/vendor/</code> — <strong>aucun compte cloud ni clé API réelle n'est requis</strong>.</li>
+                            <li>Lancez <code>npm run dev:full</code> pour démarrer simultanément les émulateurs locaux (Firestore <code>:8080</code>, Auth <code>:9099</code>, Emulator UI <code>:4000</code>, Hosting Web <code>:5002</code> avec persistance dans <code>./demo-data</code>) et le serveur d'administration Flask (<code>:5000</code>).</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="landing-footer" style="background:white; border-top:1px solid #E8EDF2;">
+            <div class="footer-content" style="max-width:1200px; margin:0 auto; padding:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                <div>
+                    <p style="margin:0; font-size:0.9rem; color:#0F172A;">
+                        <strong>Project Regulus</strong> — Plateforme GMAO Biomédicale, Technique &amp; Fluides Médicaux
+                    </p>
+                    <p style="margin:4px 0 0; font-size:0.8rem; color:#64748B;">
+                        Version vitrine publique Open-Architecture • Firebase / Firestore + Administration Python/Flask
+                    </p>
+                </div>
+                <div style="display:flex; gap:20px; align-items:center;">
+                    <a href="#presentation" style="color:#64748B; font-size:0.85rem; text-decoration:none;">Présentation</a>
+                    <a href="#features" style="color:#64748B; font-size:0.85rem; text-decoration:none;">Fonctionnalités</a>
+                    <a href="#admin-system" style="color:#64748B; font-size:0.85rem; text-decoration:none;">Administration</a>
+                    <a href="https://github.com/LenoirSys" target="_blank" rel="noopener noreferrer" style="color:#1565C0; font-weight:600; font-size:0.85rem; text-decoration:none;">
+                        🐙 GitHub (@LenoirSys)
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/firebase.js"></script>
+    <script src="js/page-bootstrap.js"></script>
+</body>
+</html>

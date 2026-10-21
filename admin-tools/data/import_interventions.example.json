@@ -1,0 +1,50 @@
+[
+  {
+    "id": "REG-BIO-001",
+    "equipment": "Moniteur Multiparamétrique Carescape B650",
+    "service": "CHU Central — Réanimation",
+    "structure": "CHU Central",
+    "domain": "biomedicale",
+    "specialite": "Biomédical",
+    "type_maintenance": "Curative / Dépannage",
+    "description": "Défaut d'affichage module SpO2 et erreur d'initialisation capteur.",
+    "solution": "Remplacement du câble d'interface SpO2 et calibration complète.",
+    "observation": "Fonctionnel",
+    "status": "resolved",
+    "priority": "high",
+    "date": "2026-07-10",
+    "assignedTo": "Jean-Paul LAURENT"
+  },
+  {
+    "id": "REG-FLU-002",
+    "equipment": "Rampe d'Inversion Automatique Oxygène",
+    "service": "Hôpital Régional Nord — Centrale Gaz",
+    "structure": "Hôpital Régional Nord",
+    "domain": "fluides",
+    "specialite": "Fluides & PSA",
+    "type_maintenance": "Préventive / Entretien",
+    "description": "Contrôle réglementaire des détendeurs haute pression et pressostats d'alarme.",
+    "solution": "Remplacement des joints haute pression laiton et test de basculement.",
+    "observation": "Fonctionnel",
+    "status": "resolved",
+    "priority": "medium",
+    "date": "2026-07-12",
+    "assignedTo": "Claire MOREAU"
+  },
+  {
+    "id": "REG-FRO-003",
+    "equipment": "Armoire Réfrigérée Banque de Sang +4°C",
+    "service": "Centre Mère-Enfant — Laboratoire",
+    "structure": "Centre Mère-Enfant",
+    "domain": "froid",
+    "specialite": "Froid & Climatisation",
+    "type_maintenance": "Curative / Dépannage",
+    "description": "Oscillation thermique entre +4°C et +7.5°C avec déclenchement d'alarme haute.",
+    "solution": "Remplacement de la sonde PT100 de régulation et dégivrage de l'évaporateur.",
+    "observation": "Fonctionnel",
+    "status": "resolved",
+    "priority": "high",
+    "date": "2026-07-14",
+    "assignedTo": "Thomas BERNARD"
+  }
+]

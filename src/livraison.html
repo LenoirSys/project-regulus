@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Regulus — Livraisons d'oxygène</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body data-page="livraisons">
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="logo-container" title="Retour à l'accueil Project Regulus">
+                    <img src="logo.svg" alt="Project Regulus" class="app-logo" />
+                    <div class="logo-brand">
+                        <span class="logo-text">REGULUS</span>
+                        <span class="logo-sub">GMAO</span>
+                    </div>
+                </a>
+                <h2 class="page-title">🚚 Livraisons d'oxygène</h2>
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <span class="user-avatar">FM</span>
+                    <span class="user-name">Technicien Fluides</span>
+                </div>
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <img src="logo.svg" alt="Project Regulus" class="app-logo" />
+                <div class="logo-brand">
+                    <span class="logo-text">REGULUS</span>
+                    <span class="logo-sub">Maintenance</span>
+                </div>
+            </div>
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="active" data-page="livraisons">
+                <span class="nav-icon">🚚</span> Livraisons
+            </a>
+            <a href="#" data-page="commandes">
+                <span class="nav-icon">📋</span> Commandes
+            </a>
+            <a href="#" data-page="historique">
+                <span class="nav-icon">📜</span> Historique
+            </a>
+            <a href="#" data-page="rapports">
+                <span class="nav-icon">📄</span> Rapports
+            </a>
+            <a href="PSA.html">
+                <span class="nav-icon">🧪</span> Contrôle PSA
+            </a>
+            <a href="technicien.html">
+                <span class="nav-icon">🎯</span> Retour interventions
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="index.html" class="logout-btn">🚪 Déconnexion</a>
+        </div>
+    </aside>
+
+    <!-- Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Livraisons -->
+        <section id="page-livraisons" class="page-content active">
+            <div class="card">
+                <h2>🚚 Enregistrer une livraison</h2>
+                <p class="muted">Saisissez les informations de la livraison d'oxygène médical effectuée.</p>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="livStructure">🏥 Structure destinataire *</label>
+                        <select id="livStructure" required>
+                            <option value="">— Sélectionner —</option>
+                            <option value="CHU Central">CHU Central</option>
+                            <option value="Hôpital Régional Nord">Hôpital Régional Nord</option>
+                            <option value="Hôpital Général Sud">Hôpital Général Sud</option>
+                            <option value="Centre Mère-Enfant">Centre Mère-Enfant</option>
+                            <option value="Institut de Cardiologie">Institut de Cardiologie</option>
+                            <option value="Polyclinique Universitaire">Polyclinique Universitaire</option>
+                            <option value="Centre d'Imagerie & Diagnostic">Centre d'Imagerie &amp; Diagnostic</option>
+                            <option value="Hôpital de District Est">Hôpital de District Est</option>
+                            <option value="Hôpital de District Ouest">Hôpital de District Ouest</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="livType">🔧 Type de bouteille *</label>
+                        <select id="livType" required>
+                            <option value="B50">B50</option>
+                            <option value="B10">B10</option>
+                            <option value="B20">B20</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="livQuantite">🔢 Quantité *</label>
+                        <input type="number" id="livQuantite" min="1" value="1" required />
+                    </div>
+                    <div class="field">
+                        <label for="livVehicule">🚛 Véhicule</label>
+                        <select id="livVehicule">
+                            <option value="Tricycle">Tricycle</option>
+                            <option value="Ambulance">Ambulance</option>
+                            <option value="Camion">Camion</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="livDate">📅 Date de livraison</label>
+                        <input type="date" id="livDate" />
+                    </div>
+                    <div class="field full">
+                        <label for="livObservation">📝 Observation (optionnelle)</label>
+                        <textarea id="livObservation" rows="2" placeholder="Remarques éventuelles..."></textarea>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="livSubmitBtn" class="btn primary" style="flex:1; justify-content:center;">
+                        📤 Enregistrer la livraison
+                    </button>
+                    <button id="livResetBtn" class="btn ghost">🗑️ Vider</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Commandes -->
+        <section id="page-commandes" class="page-content">
+            <div class="card">
+                <h2>📋 Enregistrer une commande</h2>
+                <p class="muted">Saisissez les informations de la commande reçue d'une structure hospitalière.</p>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="cmdStructure">🏥 Structure demandeuse *</label>
+                        <select id="cmdStructure" required>
+                            <option value="">— Sélectionner —</option>
+                            <option value="CHU Central">CHU Central</option>
+                            <option value="Hôpital Régional Nord">Hôpital Régional Nord</option>
+                            <option value="Hôpital Général Sud">Hôpital Général Sud</option>
+                            <option value="Centre Mère-Enfant">Centre Mère-Enfant</option>
+                            <option value="Institut de Cardiologie">Institut de Cardiologie</option>
+                            <option value="Polyclinique Universitaire">Polyclinique Universitaire</option>
+                            <option value="Centre d'Imagerie & Diagnostic">Centre d'Imagerie &amp; Diagnostic</option>
+                            <option value="Hôpital de District Est">Hôpital de District Est</option>
+                            <option value="Hôpital de District Ouest">Hôpital de District Ouest</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="cmdType">🔧 Type de bouteille *</label>
+                        <select id="cmdType" required>
+                            <option value="B50">B50</option>
+                            <option value="B10">B10</option>
+                            <option value="B20">B20</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="cmdQuantite">🔢 Quantité demandée *</label>
+                        <input type="number" id="cmdQuantite" min="1" value="1" required />
+                    </div>
+                    <div class="field">
+                        <label for="cmdDate">📅 Date de la commande</label>
+                        <input type="date" id="cmdDate" />
+                    </div>
+                    <div class="field full">
+                        <label for="cmdObservation">📝 Observation (optionnelle)</label>
+                        <textarea id="cmdObservation" rows="2" placeholder="Remarques éventuelles..."></textarea>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="cmdSubmitBtn" class="btn primary" style="flex:1; justify-content:center;">
+                        📤 Enregistrer la commande
+                    </button>
+                    <button id="cmdResetBtn" class="btn ghost">🗑️ Vider</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Historique -->
+        <section id="page-historique" class="page-content">
+            <div class="card">
+                <h2>📜 Historique des livraisons</h2>
+                <div id="livraisonsHistory" class="request-list"></div>
+            </div>
+            <div class="card" style="margin-top:16px;">
+                <h2>📋 Historique des commandes</h2>
+                <div id="commandesHistory" class="request-list"></div>
+            </div>
+        </section>
+
+        <!-- Page Rapports -->
+        <section id="page-rapports" class="page-content">
+            <div class="card">
+                <h2>📄 Rapport hebdomadaire</h2>
+                <p class="muted">Généré automatiquement à partir des saisies de la semaine.</p>
+                <div id="rapportPreview"></div>
+                <button id="generateRapportBtn" class="btn primary" style="margin-top:16px;">
+                    📄 Générer le rapport
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Firebase SDKs -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+
+    <!-- Scripts -->
+    <script src="js/firebase.js"></script>
+    <script src="js/state-utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/page-bootstrap.js"></script>
+    <script src="js/auth.js"></script>
+    <!-- Librairies Word (.docx) -->
+    <script src="js/vendor/pizzip.js"></script>
+    <script src="js/vendor/docxtemplater.js"></script>
+    <script src="js/vendor/FileSaver.min.js"></script>
+    <script src="js/report-service.js"></script>
+
+    <script src="js/livraison.js"></script>
+</body>
+</html>

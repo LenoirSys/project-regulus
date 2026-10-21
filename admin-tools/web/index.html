@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Regulus GMAO - Administration Locale des Utilisateurs</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barre supérieure -->
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo">🏥</div>
+            <div>
+                <h1>Project Regulus GMAO · Central</h1>
+                <span class="subtext">Module d'Administration Locale</span>
+            </div>
+        </div>
+        <div class="topbar-actions">
+            <span class="badge live-badge">🟢 Firebase Connecté</span>
+            <button id="btnSyncAll" class="btn secondary">🔄 Synchroniser les comptes</button>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Notification Toast / Alerte globale -->
+        <div id="alertBox" class="alert-box" style="display: none;"></div>
+
+        <!-- Section des Opérations (Import + Ajout rapide) -->
+        <section class="ops-grid">
+
+            <!-- Carte 1 : Importation de fichiers -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>📁 Importation en masse (JSON / YAML)</h2>
+                    <span class="muted-info">Création ou mise à jour par lot</span>
+                </div>
+                <div class="card-body">
+                    <p class="description">
+                        Glissez-déposez un fichier <code>.json</code> ou <code>.yaml</code> contenant la liste de vos agents pour les injecter directement dans Firebase.
+                    </p>
+
+                    <div id="dropZone" class="drop-zone">
+                        <span class="drop-icon">📄</span>
+                        <p id="dropText">Cliquez pour choisir un fichier ou déposez-le ici</p>
+                        <span class="file-hint">Formats acceptés : .json, .yaml, .yml</span>
+                        <input type="file" id="fileInput" accept=".json,.yaml,.yml" style="display: none;">
+                    </div>
+
+                    <div class="file-actions">
+                        <button id="btnUpload" class="btn primary" disabled>🚀 Lancer l'importation</button>
+                        <div class="templates-links">
+                            <span>Modèles :</span>
+                            <a href="/data/import_utilisateurs.example.json" target="_blank">Modèle .JSON</a> ·
+                            <a href="/data/import_utilisateurs.example.yaml" target="_blank">Modèle .YAML</a>
+                        </div>
+                    </div>
+
+                    <!-- Compte rendu d'import -->
+                    <div id="importReport" class="import-report" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Carte 2 : Ajout d'un nouvel agent -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>➕ Ajouter un agent individuel</h2>
+                    <span class="muted-info">Création manuelle d'un compte</span>
+                </div>
+                <div class="card-body">
+                    <form id="formAddUser">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="userNom">Nom de famille *</label>
+                                <input type="text" id="userNom" placeholder="ex: LAURENT" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userPrenom">Prénom(s) *</label>
+                                <input type="text" id="userPrenom" placeholder="ex: Jean-Paul" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="userEmail">Email professionnel *</label>
+                                <input type="email" id="userEmail" placeholder="nom@regulus-gmao.org" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userPassword">Mot de passe temporaire *</label>
+                                <input type="password" id="userPassword" placeholder="Min. 6 caractères" required minlength="6">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="userRole">Rôle système</label>
+                                <select id="userRole">
+                                    <option value="technician" selected>🛠️ Technicien</option>
+                                    <option value="supervisor">📊 Superviseur</option>
+                                    <option value="admin">🛡️ Administrateur</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="userSpecialite">Spécialité technique</label>
+                                <select id="userSpecialite">
+                                    <option value="biomedicale" selected>Biomédicale</option>
+                                    <option value="fluides">Fluides médicaux & PSA</option>
+                                    <option value="electricite">Électricité & Énergie</option>
+                                    <option value="froid">Froid & Climatisation</option>
+                                    <option value="informatique">Informatique & Réseaux</option>
+                                    <option value="plomberie">Plomberie & Sanitaire</option>
+                                    <option value="polyvalent">Polyvalent / Maintenance générale</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="userTel">Téléphone</label>
+                                <input type="text" id="userTel" placeholder="ex: 0708091011">
+                            </div>
+                            <div class="form-group">
+                                <label for="userService">Service / Établissement</label>
+                                <input type="text" id="userService" value="Project Regulus">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn success full-width">Créer le compte agent</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Carte 3 : Injection Historique Interventions (data.json) -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h2>🏥 Historique des Interventions (data.json)</h2>
+                        <span class="muted-info">Collection Firestore 'requests'</span>
+                    </div>
+                    <span id="requestsCountBadge" class="badge" style="background:#E3F2FD; color:#1565C0; font-size:0.85rem;">Calcul en cours...</span>
+                </div>
+                <div class="card-body">
+                    <p class="description">
+                        Injectez les <strong>924 interventions</strong> du fichier <code>admin-tools/fonts/data.json</code> directement dans Firestore par lots de transactions (Batches).
+                    </p>
+
+                    <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+                        <button id="btnImportLocalDataJson" class="btn primary">
+                            ⚡ Importer le jeu d'interventions de démo
+                        </button>
+                        
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">ou téléverser un autre fichier d'interventions :</span>
+                        
+                        <input type="file" id="interventionsFileInput" accept=".json,.yaml,.yml" style="display: none;">
+                        <button id="btnChooseInterventionsFile" class="btn secondary">
+                            📁 Choisir un fichier...
+                        </button>
+                    </div>
+
+                    <!-- Compte rendu interventions -->
+                    <div id="interventionsReport" class="import-report" style="display: none; margin-top: 14px;"></div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Section Tableau des utilisateurs -->
+        <section class="card table-card">
+            <div class="table-header">
+                <div>
+                    <h2>👥 Équipe & Comptes enregistrés</h2>
+                    <span id="userCount" class="user-count">Chargement...</span>
+                </div>
+                <div class="table-controls">
+                    <input type="text" id="searchInput" placeholder="🔍 Rechercher (nom, email, spécialité)..." class="search-input">
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-filter="all">Tous</button>
+                        <button class="filter-btn" data-filter="actif">Actifs</button>
+                        <button class="filter-btn" data-filter="inactif">Inactifs</button>
+                        <button class="filter-btn" data-filter="technician">Techniciens</button>
+                        <button class="filter-btn" data-filter="supervisor">Superviseurs</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>Agent</th>
+                            <th>Rôle</th>
+                            <th>Spécialité</th>
+                            <th>Structure</th>
+                            <th>Téléphone</th>
+                            <th>Statut</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <tr>
+                            <td colspan="7" class="loading-td">Chargement des utilisateurs...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Édition Profil -->
+    <div id="modalEdit" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>✏️ Modifier l'agent</h3>
+                <button class="modal-close" onclick="closeModal('modalEdit')">&times;</button>
+            </div>
+            <form id="formEditUser">
+                <input type="hidden" id="editUid">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editNom">Nom</label>
+                        <input type="text" id="editNom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPrenom">Prénom</label>
+                        <input type="text" id="editPrenom" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editRole">Rôle</label>
+                        <select id="editRole">
+                            <option value="technician">🛠️ Technicien</option>
+                            <option value="supervisor">📊 Superviseur</option>
+                            <option value="admin">🛡️ Administrateur</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editSpecialite">Spécialité</label>
+                        <select id="editSpecialite">
+                            <option value="biomedicale">Biomédicale</option>
+                            <option value="fluides">Fluides médicaux & PSA</option>
+                            <option value="electricite">Électricité & Énergie</option>
+                            <option value="froid">Froid & Climatisation</option>
+                            <option value="informatique">Informatique & Réseaux</option>
+                            <option value="plomberie">Plomberie & Sanitaire</option>
+                            <option value="polyvalent">Polyvalent</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editTel">Téléphone</label>
+                        <input type="text" id="editTel">
+                    </div>
+                    <div class="form-group">
+                        <label for="editService">Service</label>
+                        <input type="text" id="editService">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn secondary" onclick="closeModal('modalEdit')">Annuler</button>
+                    <button type="submit" class="btn primary">Enregistrer les modifications</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Reset Password -->
+    <div id="modalPassword" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🔑 Réinitialiser le mot de passe</h3>
+                <button class="modal-close" onclick="closeModal('modalPassword')">&times;</button>
+            </div>
+            <form id="formResetPassword">
+                <input type="hidden" id="pwdUid">
+                <p id="pwdTargetText" style="margin-bottom: 16px; font-weight: 500;"></p>
+                <div class="form-group">
+                    <label for="newPasswordInput">Nouveau mot de passe temporaire</label>
+                    <input type="password" id="newPasswordInput" required minlength="6" placeholder="Min. 6 caractères">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn secondary" onclick="closeModal('modalPassword')">Annuler</button>
+                    <button type="submit" class="btn primary">Mettre à jour</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

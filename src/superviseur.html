@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Regulus — Supervision</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================
+           Modal Styles (intégré pour éviter les problèmes)
+           ============================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #E8EDF2;
+            position: sticky;
+            top: 0;
+            background: white;
+            border-radius: 16px 16px 0 0;
+            z-index: 1;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1A2332;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #8A9BAB;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #F5F7FA;
+            color: #1A2332;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #E8EDF2;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            border-radius: 0 0 16px 16px;
+            background: #F8FAFC;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .btn.primary {
+            background: #1565C0;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn.primary:hover {
+            background: #0D47A1;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+        }
+
+        .btn.primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn.secondary {
+            background: #F5F7FA;
+            color: #5A6B7C;
+            border: 1px solid #E8EDF2;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn.secondary:hover {
+            background: #E8EDF2;
+        }
+
+        .btn-icon {
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #E8EDF2;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            background: white;
+            color: #1A2332;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1565C0;
+            box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+        }
+
+        .form-control:disabled {
+            background: #F5F7FA;
+            cursor: not-allowed;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+            color: #5A6B7C;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .modal-container {
+                max-width: 100%;
+                margin: 10px;
+                border-radius: 12px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-header {
+                padding: 16px 20px;
+            }
+            
+            .modal-body {
+                padding: 16px 20px;
+            }
+            
+            .modal-footer {
+                padding: 12px 20px;
+                flex-direction: column;
+            }
+            
+            .modal-footer .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Style pour le bouton d'ajout dans la section techniciens */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .section-header h2 {
+            margin: 0;
+        }
+
+        .section-header .muted {
+            margin: 4px 0 0 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="logo-container" title="Retour à l'accueil Project Regulus">
+                    <img src="logo.svg" alt="Project Regulus" class="app-logo" />
+                    <div class="logo-brand">
+                        <span class="logo-text">REGULUS</span>
+                        <span class="logo-sub">GMAO</span>
+                    </div>
+                </a>
+                <h2 class="page-title">📊 Supervision</h2>
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <span class="user-avatar">SM</span>
+                    <span class="user-name">Superviseur Moreau</span>
+                </div>
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <img src="logo.svg" alt="Project Regulus" class="app-logo" />
+                <div class="logo-brand">
+                    <span class="logo-text">REGULUS</span>
+                    <span class="logo-sub">Maintenance</span>
+                </div>
+            </div>
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="active" data-page="dashboard">
+                <span class="nav-icon">📊</span> Tableau de bord
+            </a>
+            <a href="#" data-page="calendar">
+                <span class="nav-icon">📅</span> Calendrier
+            </a>
+            <a href="#" data-page="reports">
+                <span class="nav-icon">📄</span> Rapports
+            </a>
+            <a href="#" data-page="history">
+                <span class="nav-icon">📜</span> Historique
+            </a>
+            <a href="livraison.html">
+                <span class="nav-icon">🚚</span> Livraisons
+            </a>
+            <a href="PSA.html">
+                <span class="nav-icon">🧪</span> Contrôle PSA
+            </a>
+            <a href="#" data-page="alerts">
+                <span class="nav-icon">🚨</span> Alertes critiques
+            </a>
+            <a href="#" data-page="technicians">
+                <span class="nav-icon">👥</span> Techniciens
+            </a>
+            <a href="#" data-page="profile">
+                <span class="nav-icon">👤</span> Profil
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="index.html" class="logout-btn">🚪 Déconnexion</a>
+        </div>
+    </aside>
+
+    <!-- Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard -->
+        <section id="page-dashboard" class="page-content active">
+            <div class="supervisor-stats">
+                <div class="stat-card">
+                    <span class="stat-icon">📋</span>
+                    <div>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Interventions totales</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🔄</span>
+                    <div>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">En cours</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">⏳</span>
+                    <div>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">En retard</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">✅</span>
+                    <div>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Résolues</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🚨</span>
+                    <div>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Alertes critiques</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">👥</span>
+                    <div>
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Techniciens actifs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="supervisor-grid">
+                <div class="card">
+                    <h3>Répartition par domaine</h3>
+                    <div id="supervisorDomains" class="domain-bars"></div>
+                </div>
+                <div class="card">
+                    <h3>Dernières actions</h3>
+                    <div id="supervisorActivity" class="activity-feed"></div>
+                </div>
+            </div>
+
+            <div class="supervisor-grid">
+                <div class="card">
+                    <h3>🚨 Alertes en cours</h3>
+                    <div id="supervisorAlerts" class="request-list"></div>
+                </div>
+                <div class="card">
+                    <h3>⏳ Interventions en retard</h3>
+                    <div id="supervisorLate" class="request-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendar -->
+        <section id="page-calendar" class="page-content">
+            <div id="activityCalendar"></div>
+        </section>
+
+        <!-- Reports -->
+        <section id="page-reports" class="page-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                <div>
+                    <h2>📄 Fiches et Bilans d'Activités</h2>
+                    <p class="muted">Générez les fiches Word officielles par intervention ou exportez le bilan périodique consolidé.</p>
+                </div>
+            </div>
+
+            <!-- Bilan consolidé par période (Activités biomédicales, fluides/PSA, froid, etc.) -->
+            <div class="card" style="padding:20px; margin-bottom:24px; border:1px solid #BBDEFB; background:linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 100%);">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+                    <div>
+                        <h3 style="margin:0 0 4px 0; color:#1565C0; display:flex; align-items:center; gap:8px;">
+                            <span>📊</span> Bilan Périodique Consolidé — Project Regulus
+                        </h3>
+                        <p class="muted" style="margin:0; font-size:0.9rem;">
+                            Agrège les interventions par spécialité (Biomédicale, Fluides/PSA & Livraisons, Froid, Électricité, etc.) au format Word officiel.
+                        </p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <select id="bilanPeriodSelect" class="form-control" style="min-width:180px;">
+                            <option value="week">Semaine en cours</option>
+                            <option value="month">Mois en cours</option>
+                            <option value="all">Tout l'historique clôturé</option>
+                        </select>
+                        <button type="button" id="btnExportBilanDocx" class="btn primary" style="background:#1565C0; font-weight:600;">
+                            🚀 Télécharger le Bilan Word (.docx)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="margin:0; font-size:1.1rem; color:#1E293B;">Fiches d'intervention individuelles clôturées</h3>
+                <span class="muted" id="supervisorReportsCount" style="font-size:0.85rem;"></span>
+            </div>
+            <div id="supervisorReports" class="request-list"></div>
+        </section>
+
+        <!-- History -->
+        <section id="page-history" class="page-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                <div>
+                    <h2>📜 Historique global des interventions</h2>
+                    <p class="muted" id="supervisorHistoryCounter">Chargement de l'historique complet...</p>
+                </div>
+            </div>
+
+            <!-- Filtres & Recherche Historique Superviseur -->
+            <div class="card" style="padding:16px; margin-bottom:16px;">
+                <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:12px;">
+                    <div>
+                        <input type="text" id="supHistorySearchInput" class="form-control" placeholder="🔍 Rechercher (équipement, technicien, service, ID, diagnostic...)" />
+                    </div>
+                    <div>
+                        <select id="supHistoryDomainFilter" class="form-control">
+                            <option value="all">Tous les domaines</option>
+                            <option value="biomedicale">Biomédical</option>
+                            <option value="froid">Froid & Climatisation</option>
+                            <option value="fluides">Fluides & PSA</option>
+                            <option value="electromecanique">Électromécanique</option>
+                            <option value="electricite">Électricité</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select id="supHistoryStatusFilter" class="form-control">
+                            <option value="all">Tous les statuts</option>
+                            <option value="resolved">Clôturées / Terminées</option>
+                            <option value="in_progress">En cours</option>
+                            <option value="reported">En attente / Signalées</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="supervisorHistory" class="request-list"></div>
+            <div id="supervisorHistoryPagination" style="text-align:center; margin-top:16px;"></div>
+        </section>
+
+        <!-- Alerts -->
+        <section id="page-alerts" class="page-content">
+            <h2>🚨 Alertes critiques</h2>
+            <p class="muted" style="margin-bottom:16px;">Historique et suivi des alertes déclarées.</p>
+            <div id="supervisorAllAlerts" class="request-list"></div>
+        </section>
+
+        <!-- Technicians -->
+        <section id="page-technicians" class="page-content">
+            <div class="section-header">
+                <div>
+                    <h2>👥 Équipe technique</h2>
+                    <p class="muted">Charge de travail par technicien.</p>
+                </div>
+                <button type="button" id="addUserBtn" class="btn primary" onclick="openAddUserModal()">
+                    ➕ Ajouter un utilisateur
+                </button>
+            </div>
+            <div id="supervisorTechnicians" class="tech-grid"></div>
+        </section>
+
+        <!-- Profile -->
+        <section id="page-profile" class="page-content">
+            <div class="card" style="max-width: 700px; margin: 0 auto;">
+                <h2>👤 Mon profil</h2>
+                <p class="muted" style="margin-bottom: 20px;">Consultez et modifiez vos informations personnelles.</p>
+                <form id="profileForm" class="profile-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label for="profileNom">Nom</label>
+                            <input id="profileNom" class="form-control" placeholder="Nom" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="profilePrenom">Prénom</label>
+                            <input id="profilePrenom" class="form-control" placeholder="Prénom" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEmail">Email (identifiant de connexion)</label>
+                        <input id="profileEmail" class="form-control" disabled />
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label for="profileTelephone">Téléphone</label>
+                            <input id="profileTelephone" class="form-control" placeholder="Ex. +33 6 00 00 00 00" />
+                        </div>
+                        <div class="form-group">
+                            <label for="profileService">Service / Pôle</label>
+                            <input id="profileService" class="form-control" placeholder="Ex. Direction Technique / Supervision" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Rôle</label>
+                        <div style="padding-top: 8px;">
+                            <span id="profileRoleBadge" class="badge in_progress">Superviseur</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                        <button type="submit" id="btnSaveProfile" class="btn primary">💾 Enregistrer les modifications</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================
+    MODAL D'AJOUT D'UTILISATEUR
+    ============================================ -->
+    <div id="modalAddUser" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h5 class="modal-title">🔨 Enregistrer un nouveau technicien / agent</h5>
+                <button type="button" id="closeAddUserModalBtn" class="modal-close">✕</button>
+            </div>
+            <form id="formAddUser">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nom *</label>
+                            <input type="text" id="userNom" class="form-control" required placeholder="Laurent">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Prénom *</label>
+                            <input type="text" id="userPrenom" class="form-control" required placeholder="Jean">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Adresse Email (Identifiant) *</label>
+                        <input type="email" id="userEmail" class="form-control" required placeholder="j.laurent@regulus-gmao.org">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Mot de passe temporaire *</label>
+                        <input type="password" id="userPassword" class="form-control" required minlength="6" placeholder="Minimum 6 caractères">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Rôle *</label>
+                            <select id="userRole" class="form-control" required>
+                                <option value="technician" selected>Technicien</option>
+                                <option value="demandeur">Demandeur (Chef de service)</option>
+                                <option value="admin">Superviseur / Admin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Spécialité / Domaine</label>
+                            <input type="text" id="userSpecialite" class="form-control" placeholder="Biomédical, Électricité...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Service</label>
+                        <input type="text" id="userService" class="form-control" placeholder="Pôle Maintenance Regulus" value="Pôle Maintenance Regulus">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Téléphone</label>
+                        <input type="tel" id="userTelephone" class="form-control" placeholder="05 55 55 55 55">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelAddUserBtn" class="btn secondary">Annuler</button>
+                    <button type="submit" class="btn primary" id="btnSaveUser">
+                        <span class="btn-icon">➕</span> Créer le compte
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================
+    MODAL D'ÉDITION D'UNE INTERVENTION (SUPERVISEUR)
+    ============================================ -->
+    <div id="modalEditIntervention" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditInterventionTitle">✏️ Modifier l'intervention</h5>
+                <button type="button" id="closeEditInterventionBtn" class="modal-close">✕</button>
+            </div>
+            <form id="formEditIntervention">
+                <input type="hidden" id="editIntId" />
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Date *</label>
+                            <input type="date" id="editIntDate" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Statut *</label>
+                            <select id="editIntStatus" class="form-control" required>
+                                <option value="resolved">✅ Clôturée / Terminée</option>
+                                <option value="in_progress">⚙️ En cours</option>
+                                <option value="on_hold">⏸️ En attente</option>
+                                <option value="reported">📋 Signalée / Nouvelle</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Équipement / Installation *</label>
+                            <input type="text" id="editIntEquipment" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Service / Établissement *</label>
+                            <input type="text" id="editIntService" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Domaine / Spécialité *</label>
+                            <select id="editIntSpecialite" class="form-control" required>
+                                <option value="Biomédical">Biomédical</option>
+                                <option value="Froid & Climatisation">Froid & Climatisation</option>
+                                <option value="Fluides & PSA">Fluides & PSA</option>
+                                <option value="Électromécanique">Électromécanique</option>
+                                <option value="Électricité">Électricité</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Technicien assigné</label>
+                            <input type="text" id="editIntAssignedTo" class="form-control" placeholder="Nom du technicien" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Priorité</label>
+                        <select id="editIntPriority" class="form-control">
+                            <option value="low">🟢 Basse</option>
+                            <option value="medium">🟠 Normal</option>
+                            <option value="high">🔴 Urgent</option>
+                            <option value="critical">🚨 Critique</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Constat / Description de la panne *</label>
+                        <textarea id="editIntDesc" rows="3" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Travaux réalisés / Solution</label>
+                        <textarea id="editIntSolution" rows="3" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Observation finale (ex: Fonctionnel, En service)</label>
+                        <input type="text" id="editIntObservation" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelEditInterventionBtn" class="btn secondary">Annuler</button>
+                    <button type="submit" class="btn primary" id="btnSaveEditIntervention">
+                        💾 Enregistrer les modifications
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Scripts Firebase SDKs (10.8.0) -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+
+    <!-- Configuration & Métier -->
+    <script src="js/firebase.js"></script>
+    <script src="js/state-utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/page-bootstrap.js"></script>
+    
+    <!-- Librairies de génération Word (.docx) -->
+    <script src="js/vendor/pizzip.js"></script>
+    <script src="js/vendor/docxtemplater.js"></script>
+    <script src="js/vendor/FileSaver.min.js"></script>
+    <script src="js/report-service.js"></script>
+
+    <!-- Script du Superviseur (à mettre en DERNIER) -->
+    <script src="js/supervisor.js"></script>
+</body>
+</html>

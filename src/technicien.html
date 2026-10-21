@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Regulus — Espace Technicien</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="logo-container" title="Retour à l'accueil Project Regulus">
+                    <img src="logo.svg" alt="Project Regulus" class="app-logo" />
+                    <div class="logo-brand">
+                        <span class="logo-text">REGULUS</span>
+                        <span class="logo-sub">GMAO</span>
+                    </div>
+                </a>
+                <h2 class="page-title">🎯 File de travail</h2>
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <span class="user-avatar">TL</span>
+                    <span class="user-name">Technicien Laurent</span>
+                </div>
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <img src="logo.svg" alt="Project Regulus" class="app-logo" />
+                <div class="logo-brand">
+                    <span class="logo-text">REGULUS</span>
+                    <span class="logo-sub">Maintenance</span>
+                </div>
+            </div>
+            <button class="close-sidebar" id="closeSidebar">✕</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="active" data-page="workbench">
+                <span class="nav-icon">🎯</span> File de travail
+            </a>
+            <a href="#" data-page="history">
+                <span class="nav-icon">📜</span> Historique
+            </a>
+            <a href="#" data-page="calendar">
+                <span class="nav-icon">📅</span> Calendrier
+            </a>
+            <a href="#" data-page="reports">
+                <span class="nav-icon">📄</span> Rapports
+            </a>
+            <a href="livraison.html">
+                <span class="nav-icon">🚚</span> Livraisons
+            </a>
+            <a href="PSA.html">
+                <span class="nav-icon">🧪</span> Contrôle PSA
+            </a>
+            <a href="#" data-page="alerts">
+                <span class="nav-icon">🚨</span> Alertes critiques
+            </a>
+            <a href="#" data-page="profile">
+                <span class="nav-icon">👤</span> Profil
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="index.html" class="logout-btn">🚪 Déconnexion</a>
+        </div>
+    </aside>
+
+    <!-- Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content technician-layout">
+        <!-- Workbench -->
+        <section id="page-workbench" class="page-content active workbench-layout">
+            <!-- Left: Request List -->
+            <div class="workbench-list">
+                <div class="workbench-header">
+                    <h3>Interventions</h3>
+                    <div class="filter-badges">
+                        <span class="filter-badge active" data-filter="all">Toutes</span>
+                        <span class="filter-badge" data-filter="urgent">Urgentes</span>
+                        <span class="filter-badge" data-filter="active">En cours</span>
+                    </div>
+                </div>
+                <div id="technicianRequests" class="request-list"></div>
+            </div>
+
+            <!-- Right: Detail Panel -->
+            <div class="workbench-detail" id="detailPanel">
+                <div class="detail-empty">
+                    <span class="empty-icon">🔧</span>
+                    <h3>Sélectionnez une intervention</h3>
+                    <p>Cliquez sur une carte pour voir les détails</p>
+                </div>
+
+                <div id="detailContent" style="display:none;">
+                    <!-- Tabs -->
+                    <div class="detail-tabs">
+                        <button class="tab-btn active" data-tab="info">Informations</button>
+                        <button class="tab-btn" data-tab="timeline">Chronologie</button>
+                        <button class="tab-btn" data-tab="diagnostic">Diagnostic</button>
+                        <button class="tab-btn" data-tab="parts">Pièces</button>
+                        <button class="tab-btn" data-tab="photos">Photos</button>
+                        <button class="tab-btn" data-tab="report">Rapport</button>
+                    </div>
+
+                    <!-- Tab: Info -->
+                    <div class="tab-content active" id="tab-info">
+                        <div class="detail-info-grid">
+                            <div class="info-row"><label>Équipement</label><span id="dEquipment">—</span></div>
+                            <div class="info-row"><label>N° Inventaire</label><span id="dInventory">—</span></div>
+                            <div class="info-row"><label>Marque</label><span id="dBrand">—</span></div>
+                            <div class="info-row"><label>Service</label><span id="dService">—</span></div>
+                            <div class="info-row"><label>Description</label><span id="dDescription">—</span></div>
+                            <div class="info-row"><label>Priorité</label><span id="dPriority" class="badge">—</span></div>
+                            <div class="info-row"><label>Technicien</label><span id="dTechnician">—</span></div>
+                            <div class="info-row"><label>Statut</label><span id="dStatus" class="badge">—</span></div>
+                        </div>
+                        <div class="detail-actions">
+                            <button id="takeOwnershipBtn" class="btn primary">Prendre en charge</button>
+                            <button id="holdBtn" class="btn warning">Mettre en attente</button>
+                            <button id="resolveBtn" class="btn success">Clôturer</button>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Timeline -->
+                    <div class="tab-content" id="tab-timeline">
+                        <div id="detailTimeline" class="timeline"></div>
+                    </div>
+
+                    <!-- Tab: Diagnostic -->
+                    <div class="tab-content" id="tab-diagnostic">
+                        <div class="form-group">
+                            <label>Description du diagnostic</label>
+                            <textarea id="diagDesc" rows="3" placeholder="Description détaillée..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Cause probable</label>
+                            <input id="diagCause" placeholder="Cause probable..." />
+                        </div>
+                        <div class="form-group">
+                            <label>Solution apportée</label>
+                            <textarea id="diagSolution" rows="3" placeholder="Solution mise en œuvre..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Observations</label>
+                            <textarea id="diagObservations" rows="2" placeholder="Observations complémentaires..."></textarea>
+                        </div>
+                        <button id="saveDiagnostic" class="btn primary">Enregistrer le diagnostic</button>
+                    </div>
+
+                    <!-- Tab: Parts -->
+                    <div class="tab-content" id="tab-parts">
+                        <div class="parts-header">
+                            <h4>Pièces utilisées</h4>
+                            <button class="btn ghost small" id="addPartBtn">+ Ajouter</button>
+                        </div>
+                        <table class="parts-table">
+                            <thead>
+                                <tr><th>Référence</th><th>Nom</th><th>Qté</th><th>Action</th></tr>
+                            </thead>
+                            <tbody id="partsList">
+                                <tr><td colspan="4" class="empty-text">Aucune pièce enregistrée</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Tab: Photos -->
+                    <div class="tab-content" id="tab-photos">
+                        <div class="photo-grid">
+                            <div class="photo-zone">
+                                <h4>📷 Avant intervention</h4>
+                                <div class="photo-drop" id="photoBefore">
+                                    <span>Déposer une photo</span>
+                                    <input type="file" accept="image/*" />
+                                </div>
+                                <div id="photoBeforePreview" class="photo-preview"></div>
+                            </div>
+                            <div class="photo-zone">
+                                <h4>📷 Après intervention</h4>
+                                <div class="photo-drop" id="photoAfter">
+                                    <span>Déposer une photo</span>
+                                    <input type="file" accept="image/*" />
+                                </div>
+                                <div id="photoAfterPreview" class="photo-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Report -->
+                    <div class="tab-content" id="tab-report">
+                        <div class="report-preview">
+                            <div id="reportPreview"></div>
+                        </div>
+                        <button id="generateReportBtn" class="btn primary">📄 Générer le rapport</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History -->
+        <section id="page-history" class="page-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                <div>
+                    <h2>📜 Historique des interventions</h2>
+                    <p class="muted" id="historyCounter">Chargement de l'historique...</p>
+                </div>
+            </div>
+
+            <!-- Filtres & Recherche Historique -->
+            <div class="card" style="padding:16px; margin-bottom:16px;">
+                <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:12px;">
+                    <div>
+                        <input type="text" id="historySearchInput" class="form-control" placeholder="🔍 Rechercher (équipement, service, mot-clé, date, ID...)" />
+                    </div>
+                    <div>
+                        <select id="historyDomainFilter" class="form-control">
+                            <option value="all">Tous les domaines</option>
+                            <option value="biomedicale">Biomédical</option>
+                            <option value="froid">Froid & Climatisation</option>
+                            <option value="fluides">Fluides & PSA</option>
+                            <option value="electromecanique">Électromécanique</option>
+                            <option value="electricite">Électricité</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select id="historyScopeFilter" class="form-control">
+                            <option value="all">Toutes les interventions</option>
+                            <option value="mine">Mes interventions</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="techHistory" class="request-list"></div>
+            <div id="historyPagination" style="text-align:center; margin-top:16px;"></div>
+        </section>
+
+        <!-- Calendar -->
+        <section id="page-calendar" class="page-content">
+            <div id="activityCalendar"></div>
+        </section>
+
+        <!-- Reports -->
+        <section id="page-reports" class="page-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                <div>
+                    <h2>📄 Fiches et Rapports d'intervention</h2>
+                    <p class="muted" id="reportsCounter">Téléchargez les rapports Word des interventions clôturées.</p>
+                </div>
+            </div>
+
+            <div class="card" style="padding:16px; margin-bottom:16px;">
+                <input type="text" id="reportsSearchInput" class="form-control" placeholder="🔍 Rechercher un rapport (équipement, date, service...)" />
+            </div>
+
+            <div id="techReports" class="request-list"></div>
+            <div id="reportsPagination" style="text-align:center; margin-top:16px;"></div>
+        </section>
+
+        <!-- Alerts -->
+        <section id="page-alerts" class="page-content">
+            <h2>🚨 Alertes critiques</h2>
+            <div id="criticalAlerts" class="request-list"></div>
+        </section>
+
+        <!-- Profile -->
+        <section id="page-profile" class="page-content">
+            <div class="card" style="max-width: 700px; margin: 0 auto;">
+                <h2>👤 Mon profil</h2>
+                <p class="muted" style="margin-bottom: 20px;">Consultez et modifiez vos informations personnelles.</p>
+                <form id="profileForm" class="profile-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label for="profileNom">Nom</label>
+                            <input id="profileNom" class="form-control" placeholder="Nom" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="profilePrenom">Prénom</label>
+                            <input id="profilePrenom" class="form-control" placeholder="Prénom" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEmail">Email (identifiant de connexion)</label>
+                        <input id="profileEmail" class="form-control" disabled />
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label for="profileTelephone">Téléphone</label>
+                            <input id="profileTelephone" class="form-control" placeholder="Ex. +33 6 00 00 00 00" />
+                        </div>
+                        <div class="form-group">
+                            <label for="profileService">Service / Affectation</label>
+                            <input id="profileService" class="form-control" placeholder="Ex. Biomédical, Maintenance centrale" />
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label for="profileSpecialite">Spécialité</label>
+                            <select id="profileSpecialite" class="form-control">
+                                <option value="Biomédical">Biomédical</option>
+                                <option value="Électromécanique">Électromécanique</option>
+                                <option value="Froid & Climatisation">Froid & Climatisation</option>
+                                <option value="Fluides & PSA">Fluides & PSA</option>
+                                <option value="Électricité">Électricité</option>
+                                <option value="Généraliste">Généraliste</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Rôle</label>
+                            <div style="padding-top: 8px;">
+                                <span id="profileRoleBadge" class="badge in_progress">Technicien</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                        <button type="submit" id="btnSaveProfile" class="btn primary">💾 Enregistrer les modifications</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Actions Flottantes (Intervention achevée & Alerte critique) -->
+    <div class="fab-container" style="position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 12px; z-index: 900; align-items: flex-end;">
+        <button class="btn danger" id="fabAlert" title="Déclarer une alerte critique" style="padding: 12px 20px; border-radius: 999px; box-shadow: 0 4px 16px rgba(211,47,47,0.4); font-weight: 700; display: flex; align-items: center; gap: 8px;">
+            🚨 Déclarer une alerte critique
+        </button>
+        <button class="btn primary" id="fabIntervention" title="Saisir une intervention achevée" style="padding: 14px 24px; border-radius: 999px; box-shadow: 0 6px 20px rgba(21,101,192,0.4); font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+            ➕ Saisir une intervention achevée
+        </button>
+    </div>
+
+    <!-- ============================================
+         MODAL 1 : SAISIR UNE INTERVENTION ACHEVÉE
+         ============================================ -->
+    <div class="modal-overlay" id="modalIntervention">
+        <div class="modal" style="max-width: 650px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h3>📝 Saisie d'une intervention achevée</h3>
+                <button class="modal-close" id="modalInterventionClose">✕</button>
+            </div>
+            <form id="formDeclareIntervention">
+                <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-group">
+                            <label for="intDate">Date de l'intervention *</label>
+                            <input type="date" id="intDate" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="intType">Type d'intervention *</label>
+                            <select id="intType" class="form-control" required>
+                                <option value="Curative / Dépannage">Curative / Dépannage</option>
+                                <option value="Préventive / Entretien">Préventive / Entretien</option>
+                                <option value="Contrôle / Vérification">Contrôle / Vérification</option>
+                                <option value="Installation / Mise en service">Installation / Mise en service</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-group">
+                            <label for="intEquipment">Équipement / Installation *</label>
+                            <input id="intEquipment" class="form-control" placeholder="Ex: Autoclave, Respirateur, Groupe..." required />
+                        </div>
+                        <div class="form-group">
+                            <label for="intService">Structure / Service hospitalier *</label>
+                            <input id="intService" class="form-control" placeholder="Ex: CHU Central - Maternité, Bloc..." required />
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-group">
+                            <label for="intSpecialite">Domaine / Spécialité *</label>
+                            <select id="intSpecialite" class="form-control" required>
+                                <option value="Biomédical">Biomédical</option>
+                                <option value="Froid & Climatisation">Froid & Climatisation</option>
+                                <option value="Fluides & PSA">Fluides & PSA</option>
+                                <option value="Électromécanique">Électromécanique</option>
+                                <option value="Électricité">Électricité</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="intStatus">Statut</label>
+                            <select id="intStatus" class="form-control">
+                                <option value="resolved">✅ Clôturée / Terminée</option>
+                                <option value="in_progress">⚙️ En cours</option>
+                                <option value="reported">📋 En attente</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="intDesc">Constat & Diagnostic de la panne *</label>
+                        <textarea id="intDesc" rows="3" class="form-control" placeholder="Symptômes, diagnostic effectué..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="intSolution">Travaux réalisés & Solution apportée *</label>
+                        <textarea id="intSolution" rows="3" class="form-control" placeholder="Opérations exécutées, réglages..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="intObservation">Observation finale (état de fonctionnement)</label>
+                        <input id="intObservation" class="form-control" placeholder="Ex: Fonctionnel, En bon état de marche..." value="Fonctionnel" />
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: inline-flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer;">
+                            <input type="checkbox" id="intGenerateReport" checked />
+                            📄 Télécharger immédiatement la fiche d'intervention Word
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn ghost" id="modalInterventionCancel">Annuler</button>
+                    <button type="submit" class="btn primary" id="btnSubmitIntervention">💾 Enregistrer l'intervention</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MODAL 2 : DÉCLARER UNE ALERTE CRITIQUE
+         ============================================ -->
+    <div class="modal-overlay" id="modalAlert">
+        <div class="modal" style="max-width: 550px;">
+            <div class="modal-header" style="background: #FFEBEE; border-radius: 16px 16px 0 0;">
+                <h3 style="color: #D32F2F;">🚨 Déclarer une alerte critique</h3>
+                <button class="modal-close" id="modalAlertClose">✕</button>
+            </div>
+            <form id="formDeclareAlert">
+                <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+                    <div class="form-group">
+                        <label for="alertType">Type d'incident critique *</label>
+                        <select id="alertType" class="form-control" required>
+                            <option value="power">⚡ Coupure électrique générale</option>
+                            <option value="gas">💨 Panne centrale / Fuite Gaz médicaux</option>
+                            <option value="water">💧 Coupure / Fuite d'eau critique</option>
+                            <option value="ac">❄️ Panne climatisation Bloc / Réa</option>
+                            <option value="generator">🔋 Défaut Groupe électrogène</option>
+                            <option value="network">🌐 Panne réseau / Système</option>
+                            <option value="other">📌 Autre urgence technique</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alertService">Localisation / Service impacté *</label>
+                        <input id="alertService" class="form-control" placeholder="Ex: CHU Central - Bloc opératoire / Réanimation" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alertDesc">Description précise de l'urgence *</label>
+                        <textarea id="alertDesc" rows="3" class="form-control" placeholder="Décrivez l'incident et l'impact immédiat..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alertUrgency">Niveau de criticité *</label>
+                        <select id="alertUrgency" class="form-control" required>
+                            <option value="high">🔴 Critique - Action immédiate requise</option>
+                            <option value="medium">🟠 Urgent - Intervention dans l'heure</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn ghost" id="modalAlertCancel">Annuler</button>
+                    <button type="submit" class="btn danger" id="btnSubmitAlert">🚨 Déclencher l'alerte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MODAL 3 : MODIFIER MON INTERVENTION
+         ============================================ -->
+    <div class="modal-overlay" id="modalEditTechIntervention">
+        <div class="modal" style="max-width: 650px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h3 id="modalEditTechTitle">✏️ Modifier mon intervention</h3>
+                <button class="modal-close" id="modalEditTechClose">✕</button>
+            </div>
+            <form id="formEditTechIntervention">
+                <input type="hidden" id="editTechIntId" />
+                <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-group">
+                            <label for="editTechIntDate">Date de l'intervention *</label>
+                            <input type="date" id="editTechIntDate" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="editTechIntType">Type d'intervention *</label>
+                            <select id="editTechIntType" class="form-control" required>
+                                <option value="Curative / Dépannage">Curative / Dépannage</option>
+                                <option value="Préventive / Entretien">Préventive / Entretien</option>
+                                <option value="Contrôle / Vérification">Contrôle / Vérification</option>
+                                <option value="Installation / Mise en service">Installation / Mise en service</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-group">
+                            <label for="editTechIntEquipment">Équipement / Installation *</label>
+                            <input id="editTechIntEquipment" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="editTechIntService">Structure / Service hospitalier *</label>
+                            <input id="editTechIntService" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-group">
+                            <label for="editTechIntSpecialite">Domaine / Spécialité *</label>
+                            <select id="editTechIntSpecialite" class="form-control" required>
+                                <option value="Biomédical">Biomédical</option>
+                                <option value="Froid & Climatisation">Froid & Climatisation</option>
+                                <option value="Fluides & PSA">Fluides & PSA</option>
+                                <option value="Électromécanique">Électromécanique</option>
+                                <option value="Électricité">Électricité</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editTechIntStatus">Statut</label>
+                            <select id="editTechIntStatus" class="form-control">
+                                <option value="resolved">✅ Clôturée / Terminée</option>
+                                <option value="in_progress">⚙️ En cours</option>
+                                <option value="on_hold">⏸️ En attente</option>
+                                <option value="reported">📋 Signalée</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editTechIntDesc">Constat & Diagnostic de la panne *</label>
+                        <textarea id="editTechIntDesc" rows="3" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editTechIntSolution">Travaux réalisés & Solution apportée *</label>
+                        <textarea id="editTechIntSolution" rows="3" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editTechIntObservation">Observation finale</label>
+                        <input id="editTechIntObservation" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn ghost" id="modalEditTechCancel">Annuler</button>
+                    <button type="submit" class="btn primary" id="btnSubmitEditTech">💾 Enregistrer les modifications</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+<!-- 1. SDKs Firebase Compat (Version 10.8.0) -->
+    <script src="js/vendor/firebase-app-compat.js"></script>
+    <script src="js/vendor/firebase-auth-compat.js"></script>
+    <script src="js/vendor/firebase-firestore-compat.js"></script>
+
+    <!-- 2. Initialisation de Firebase (OBLIGATOIREMENT EN PREMIER) -->
+    <script src="js/firebase.js"></script>
+
+    <!-- 3. Tes scripts applicatifs -->
+    <script src="js/state-utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/page-bootstrap.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/calendar.js"></script>
+    
+    <!-- 4. Génération de documents Word (.docx) -->
+    <script src="js/vendor/pizzip.js"></script>
+    <script src="js/vendor/docxtemplater.js"></script>
+    <script src="js/vendor/FileSaver.min.js"></script>
+    <script src="js/report-service.js"></script>
+
+    <!-- 5. Le script spécifique de la page EN DERNIER -->
+    <script src="js/technician.js"></script>
+</body>
+</html>

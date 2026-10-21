@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": "tech-1",
+      "name": "Technicien Laurent",
+      "email": "tech@regulus-gmao.org",
+      "password": "password",
+      "role": "technician",
+      "avatar": "TL",
+      "service": "Pôle Biomédical Regulus",
+      "specialite": "Biomédical"
+    },
+    {
+      "id": "sup-1",
+      "name": "Superviseur Moreau",
+      "email": "super@regulus-gmao.org",
+      "password": "password",
+      "role": "supervisor",
+      "avatar": "SM",
+      "service": "Direction Technique Regulus"
+    },
+    {
+      "id": "client-1",
+      "name": "Dr. Claire Dubois",
+      "email": "client@regulus-gmao.org",
+      "password": "password",
+      "role": "client",
+      "avatar": "CD",
+      "service": "CHU Central - Maternité"
+    }
+  ]
+}
